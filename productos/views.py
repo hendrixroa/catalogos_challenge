@@ -1,18 +1,13 @@
-from productos.models import Products, ProductsDetail
-from productos.serializers import ProductsSerializers, ProductsDetailSerializers
-from rest_framework.views import APIView
-from rest_framework.response import Response
-class ProductsList(APIView):
-    def get(self, request, format=None):
-        products = Products.objects.all()
-        serializer = ProductsSerializers(products, many=True)
-        return Response(serializer.data)
+from productos.models import Product, ProductDetail
+from django.http import HttpResponse
+from django.core import serializers
+from django.views import View
+class ProductsList(View):
+    model = Product
+
+    def get(self, request, *args, **kwargs):
+        products = Product.objects.all()
+        print(products)
+        serializer = serializers.serialize('json', products)
+        return HttpResponse(serializer, content_type='application/json')
     
-    def post(self, request, format=None):
-        return 1
-
-    def put(self, request, format=None):
-        return 2
-
-    def delete(self, request, format=None):
-        return 3
