@@ -16,7 +16,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
-
+django_heroku.settings(locals())
 # Application definition
 
 INSTALLED_APPS = [
